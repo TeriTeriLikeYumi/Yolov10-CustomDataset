@@ -1,7 +1,6 @@
 import streamlit as st
-from htbuilder import div, p, styles, HtmlElement
+from htbuilder import div, a, p, styles, HtmlElement
 from htbuilder.units import percent, px
-from htbuilder.func import link
 
 def layout(*args):
     style = """
@@ -50,6 +49,8 @@ def layout(*args):
 
     st.markdown(str(foot), unsafe_allow_html=True)
 
+def link(link, text, **style):
+    return a(_href=link, _target="_blank", style=styles(**style))(text)
 def footer():
     myargs = [
         "2024 | Made by TeriYumi",

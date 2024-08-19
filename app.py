@@ -29,10 +29,7 @@ task_type = st.sidebar.selectbox(
 # Sidebar model selection
 model_type = None
 if task_type == "Detection":
-    model_type = st.sidebar.selectbox(
-        "Select Model",
-        model_config.DETECTION_MODEL_LIST
-    )
+    model_type = model_config.DETECTION_MODEL
 else:
     st.error("Please select a task type")
 
@@ -44,8 +41,8 @@ confidence = float(st.sidebar.slider(
 @st.cache_resource
 def get_model_path(model_type):
     model_path = ""
-    if model_type == "YOLOv10n":
-        model_path = Path(model_config.DETECTION_MODEL_DIR, str(model_type))
+    if model_type == "yolov10n.pt":
+        model_path = Path(model_config.MODEL_DIR, str(model_type))
     else:
         st.error("Please select a model type")
     return model_path
@@ -55,9 +52,10 @@ def get_model_path(model_type):
 def load_model(model_path):
     try:
         model = utils.load_model(model_path)
+        return model
     except Exception as e:
         st.error(f"Error loading model. Please check the specified model path: {model_path}")
-    return model
+        st.error(e)
 
 # Load model
 model_path = get_model_path(model_type)
@@ -65,10 +63,7 @@ model = load_model(model_path)
 
 # Image options
 st.sidebar.header("Image Config")
-source_selectbox = st.sidebar.selectbox(
-    "Select Source",
-    model_config.SOURCES_LIST
-)
+source_selectbox = model_config.SOURCES_LIST
 
 # Image Source
 source_img = None

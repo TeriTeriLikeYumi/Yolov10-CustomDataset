@@ -9,7 +9,6 @@ def load_model(model_path):
     return model
 
 def _display_detected_frames(conf, model, st_frame, image):
-    image = cv2.resize(image, (conf.img_size, conf.img_size)) # Resize the image to a standard size
     res = model.predict(image, conf = conf) # Predict the bounding boxes
     
     # Plot the detected objects on the video frame 

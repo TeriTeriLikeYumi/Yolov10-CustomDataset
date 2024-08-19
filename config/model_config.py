@@ -17,7 +17,7 @@ ROOT = root_path.relative_to(Path.cwd())
 # Source
 SOURCES_LIST = ["Image"]
 
-
 # DL model config
 MODEL_DIR = ROOT / 'model' / 'weights'
 DETECTION_MODEL = MODEL_DIR / "yolov10n.pt"
+CUSTOM_MODEL = MODEL_DIR / "custom_model.pt"
