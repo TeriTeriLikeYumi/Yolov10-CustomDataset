@@ -19,5 +19,5 @@ SOURCES_LIST = ["Image"]
 
 
 # DL model config
-MODEL_DIR = ROOT / 'weights'
+MODEL_DIR = ROOT / 'model' / 'weights'
 DETECTION_MODEL = MODEL_DIR / "yolov10n.pt"
