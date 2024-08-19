@@ -14,22 +14,10 @@ if root_path not in sys.path:
 # Get the relative path of the root directory with respect to the current working directory
 ROOT = root_path.relative_to(Path.cwd())
 
-
 # Source
-SOURCES_LIST = ["Image", "Video"]
+SOURCES_LIST = ["Image"]
 
 
 # DL model config
-DETECTION_MODEL_DIR = ROOT / 'weights' / 'detection'
-YOLOv10n = DETECTION_MODEL_DIR / "yolov10n.pt"
-YOLOv10s = DETECTION_MODEL_DIR / "yolov10s.pt"
-YOLOv10m = DETECTION_MODEL_DIR / "yolov10m.pt"
-YOLOv10l = DETECTION_MODEL_DIR / "yolov10l.pt"
-YOLOv10x = DETECTION_MODEL_DIR / "yolov10x.pt"
-
-DETECTION_MODEL_LIST = [
-    "yolov10n.pt",
-    "yolov10s.pt",
-    "yolov10m.pt",
-    "yolov10l.pt",
-    "yolov10x.pt"]
+MODEL_DIR = ROOT / 'weights'
+DETECTION_MODEL = MODEL_DIR / "yolov10n.pt"
