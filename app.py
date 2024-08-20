@@ -1,25 +1,26 @@
 import streamlit as st
 from pathlib import Path
+import supervision as sv
 
 # Local modules
 from config import model_config 
 from components import footer
-import utils
+from utils import download_model, load_model, infer_uploaded_image
 
-# Page layout
+# Setting Page layout
 st.set_page_config(
     page_title="YOLOv10 Detection Demo",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Page title
+# Setting Page title
 col = st.container()   
 with col:
     st.title(':sparkles: :blue[YOLOv10] Detection Demo')
     st.text('Model: Pre-trained YOLOv10n')
 
-# Sidebar header
+# Sidebar  
 st.sidebar.header("Model Config")
 task_type = st.sidebar.selectbox(
     "Select Task",
@@ -35,7 +36,7 @@ else:
 
 # Sidebar model confidence
 confidence = float(st.sidebar.slider(
-    "Select Model Confidence", 30, 100, 50)) / 100
+    "Select Model Confidence", 10, 100, 20)) / 100
 
 # Get model path
 @st.cache_resource
@@ -51,7 +52,7 @@ def get_model_path(model_type):
 @st.cache_resource
 def load_model(model_path):
     try:
-        model = utils.load_model(model_path)
+        model = load_model(model_path)
         return model
     except Exception as e:
         st.error(f"Error loading model. Please check the specified model path: {model_path}")
@@ -67,6 +68,6 @@ source_selectbox = model_config.SOURCES_LIST
 
 # Image Source
 source_img = None
-utils.infer_uploaded_image(confidence, model)
+infer_uploaded_image(confidence, model)
 
 footer.footer()
