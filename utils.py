@@ -1,16 +1,6 @@
-import os
-import cv2
-import wget
 from ultralytics import YOLO
 import streamlit as st
 from PIL import Image
-import numpy as np
-
-# def download_model():
-#     url = 'https://github.com/THU-MIG/yolov10/releases/download/v1.1/yolov10n.pt'
-#     dest_path = 'model/yolov10/weights'
-#     os.makedirs(dest_path, exist_ok=True)
-#     wget.download(url, out=dest_path)
 
 def load_model(model_path):
     model = YOLO(model_path) # Load the model
@@ -26,12 +16,11 @@ def infer_uploaded_image(conf, model):
     
     
     if source_img is not None:
-        uploaded_image = Image.open(source_img)
-        uploaded_image = cv2.cvtColor(np.array(uploaded_image), cv2.COLOR_RGB2BGR)
+        Image.open(source_img)
         with col1:
             # Adding image to page with caption
             st.image(
-                image = uploaded_image,
+                image = source_img,
                 caption = 'Uploaded Image',
                 use_column_width = True
             )
@@ -40,7 +29,7 @@ def infer_uploaded_image(conf, model):
             with st.spinner("Running..."):
                 try:
                     st.frame = st.empty()
-                    res = model(uploaded_image, conf)
+                    res = model(source_img, conf)
                     boxes = res[0].boxes
                     res_plotted = res[0].plot()[:,:,::-1]
                     with col2:

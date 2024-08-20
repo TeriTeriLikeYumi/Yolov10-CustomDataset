@@ -5,7 +5,7 @@ import supervision as sv
 # Local modules
 from config import model_config 
 from components import footer
-from utils import download_model, load_model, infer_uploaded_image
+import utils
 
 # Setting Page layout
 st.set_page_config(
@@ -22,18 +22,12 @@ with col:
 
 # Sidebar  
 st.sidebar.header("Model Config")
-task_type = st.sidebar.selectbox(
-    "Select Task",
-    ["Detection"]
+model_type = st.sidebar.selectbox(
+    "Select Model",
+    ["Detection", "Custom"]
 )
-
-# Sidebar model selection
-model_type = None
-if task_type == "Detection":
-    model_type = model_config.DETECTION_MODEL
-else:
+if model_type == None:
     st.error("Please select a task type")
-
 # Sidebar model confidence
 confidence = float(st.sidebar.slider(
     "Select Model Confidence", 10, 100, 20)) / 100
@@ -41,9 +35,10 @@ confidence = float(st.sidebar.slider(
 # Get model path
 @st.cache_resource
 def get_model_path(model_type):
-    model_path = ""
-    if model_type == "yolov10n.pt":
-        model_path = Path(model_config.MODEL_DIR, str(model_type))
+    if model_type == "Detection":
+        model_path = Path(model_config.DETECTION_MODEL)
+    elif model_type == "Custom":
+        model_path = Path(model_config.CUSTOM_MODEL)
     else:
         st.error("Please select a model type")
     return model_path
@@ -52,7 +47,7 @@ def get_model_path(model_type):
 @st.cache_resource
 def load_model(model_path):
     try:
-        model = load_model(model_path)
+        model = utils.load_model(model_path)
         return model
     except Exception as e:
         st.error(f"Error loading model. Please check the specified model path: {model_path}")
@@ -68,6 +63,6 @@ source_selectbox = model_config.SOURCES_LIST
 
 # Image Source
 source_img = None
-infer_uploaded_image(confidence, model)
+utils.infer_uploaded_image(confidence, model)
 
 footer.footer()
