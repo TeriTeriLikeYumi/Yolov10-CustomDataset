@@ -3,7 +3,7 @@ from pathlib import Path
 import supervision as sv
 
 # Local modules
-from config import model_config 
+import model_config 
 from components import footer
 import utils
 
@@ -37,7 +37,7 @@ confidence = float(st.sidebar.slider(
 def get_model_path(model_type):
     if model_type == "Detection":
         model_path = Path(model_config.DETECTION_MODEL)
-    elif model_type == "Custom":
+    elif model_type == "Fruits Detection":
         model_path = Path(model_config.CUSTOM_MODEL)
     else:
         st.error("Please select a model type")

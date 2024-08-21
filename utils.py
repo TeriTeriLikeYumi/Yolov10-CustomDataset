@@ -1,6 +1,7 @@
 from ultralytics import YOLO
 import streamlit as st
 from PIL import Image
+import numpy as np
 
 def load_model(model_path):
     model = YOLO(model_path) # Load the model
@@ -16,11 +17,13 @@ def infer_uploaded_image(conf, model):
     
     
     if source_img is not None:
-        Image.open(source_img)
+        image = Image.open(source_img)
+        if image.mode != 'RGB':
+            image = image.convert('RGB')
         with col1:
             # Adding image to page with caption
             st.image(
-                image = source_img,
+                image = image,
                 caption = 'Uploaded Image',
                 use_column_width = True
             )
@@ -29,11 +32,15 @@ def infer_uploaded_image(conf, model):
             with st.spinner("Running..."):
                 try:
                     st.frame = st.empty()
-                    res = model.predict(source_img, conf = conf)
+                    image_array = np.array(image)
+                    res = list(model.predict(image_array, conf))
                     boxes = res[0].boxes
-                    res_plotted = res[0].plot()[:, :, ::-1]
+                    res_plotted = res[0].plot()
                     with col2:
-                        st.image(res_plotted, caption="Detected Image", use_column_width=True)
+                        st.image(image = res_plotted, 
+                                 caption = "Detected Image", 
+                                 use_column_width = True
+                                 )
                     with st.expander("Detection Results"):
                         for box in boxes:
                             st.write(box.xywh)
