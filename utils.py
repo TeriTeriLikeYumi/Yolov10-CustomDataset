@@ -29,12 +29,11 @@ def infer_uploaded_image(conf, model):
             with st.spinner("Running..."):
                 try:
                     st.frame = st.empty()
-                    res = model(source_img, conf)
+                    res = model.predict(source_img, conf = conf)
                     boxes = res[0].boxes
-                    res_plotted = res[0].plot()[:,:,::-1]
+                    res_plotted = res[0].plot()[:, :, ::-1]
                     with col2:
                         st.image(res_plotted, caption="Detected Image", use_column_width=True)
-                
                     with st.expander("Detection Results"):
                         for box in boxes:
                             st.write(box.xywh)
