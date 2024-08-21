@@ -20,4 +20,4 @@ SOURCES_LIST = ["Image"]
 # DL model config
 MODEL_DIR = ROOT / 'weights'
 DETECTION_MODEL = MODEL_DIR / 'yolov10s.pt'
-CUSTOM_MODEL1 = MODEL_DIR / 'best.pt'
+CUSTOM_MODEL = MODEL_DIR / 'best.pt'

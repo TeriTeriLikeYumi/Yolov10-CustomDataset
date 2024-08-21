@@ -38,7 +38,7 @@ def get_model_path(model_type):
     if model_type == "Yolov10s Detection":
         return Path(model_config.DETECTION_MODEL)   
     elif model_type == "Fruits Detection":
-        return Path(model_config.CUSTOM_MODEL1)
+        return Path(model_config.CUSTOM_MODEL)
     else:
         st.error("Please select a model type")
 

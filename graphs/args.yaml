@@ -1,7 +1,7 @@
 task: detect
 mode: train
-model: /content/weights/yolov10s.pt
-data: /content/datasets/Fruit-Dataset-1/data.yaml
+model: yolov10s.pt
+data: /content/Fruit-Dataset-1/data.yaml
 epochs: 10
 time: null
 patience: 100
@@ -9,7 +9,6 @@ batch: 32
 imgsz: 640
 save: true
 save_period: -1
-val_period: 1
 cache: false
 device: null
 workers: 8
