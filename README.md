@@ -13,3 +13,7 @@ $pip3 install -r requirements.txt
 ```python
 streamlit run app.py
 ```
+
+## 
+## Reference
+This code base are build using [ultralytics](https://github.com/ultralytics/ultralytics) model and [roboflow](https://universe.roboflow.com/fruits-dataset/fruit-dataset-dha1m) dataset
