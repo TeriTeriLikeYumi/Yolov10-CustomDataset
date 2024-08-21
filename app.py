@@ -1,6 +1,5 @@
 import streamlit as st
 from pathlib import Path
-import supervision as sv
 
 # Local modules
 import model_config 
@@ -24,10 +23,11 @@ with col:
 st.sidebar.header("Model Config")
 model_type = st.sidebar.selectbox(
     "Select Model",
-    ["Detection", "Custom"]
+    ["Yolov10s Detection", "Fruits Detection"]
 )
 if model_type == None:
     st.error("Please select a task type")
+    
 # Sidebar model confidence
 confidence = float(st.sidebar.slider(
     "Select Model Confidence", 10, 100, 20)) / 100
@@ -35,14 +35,13 @@ confidence = float(st.sidebar.slider(
 # Get model path
 @st.cache_resource
 def get_model_path(model_type):
-    if model_type == "Detection":
-        model_path = Path(model_config.DETECTION_MODEL)
+    if model_type == "Yolov10s Detection":
+        return Path(model_config.DETECTION_MODEL)   
     elif model_type == "Fruits Detection":
-        model_path = Path(model_config.CUSTOM_MODEL)
+        return Path(model_config.CUSTOM_MODEL1)
     else:
         st.error("Please select a model type")
-    return model_path
-    
+
 # Load pretrained ML model
 @st.cache_resource
 def load_model(model_path):

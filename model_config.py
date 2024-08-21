@@ -18,6 +18,6 @@ ROOT = root_path.relative_to(Path.cwd())
 SOURCES_LIST = ["Image"]
 
 # DL model config
-MODEL_DIR = ROOT / 'models'
-DETECTION_MODEL = MODEL_DIR / "yolov10n.pt"
-CUSTOM_MODEL = MODEL_DIR / "best.pt"
+MODEL_DIR = ROOT / 'weights'
+DETECTION_MODEL = MODEL_DIR / 'yolov10s.pt'
+CUSTOM_MODEL1 = MODEL_DIR / 'best.pt'
