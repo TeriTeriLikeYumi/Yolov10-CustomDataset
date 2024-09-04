@@ -51,11 +51,5 @@ model.train(data = dataset_path, epochs=100, batch=32,imgsz=640, plots=True)
 ```
 ## Validate
 ```
-from ultralytics import YOLO
-# Load the trained model
-model = YOLO('/content/runs/detect/train/weights/best.pt')
-
-# Validate the model
-metrics = model.val()
-print(metrics.box.map)  # mAP50-95
+python evaluate.py --model_type "Fruits Detection" --data_path "data/data.yaml"
 ```
